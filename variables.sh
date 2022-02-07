@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 
+SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 set -e
 # Function to test input parameter and validate
 
@@ -24,4 +25,4 @@ validate_environment_name () {
 
 validate_environment_name $1
 
-source terraform.sh
+source $SCRIPT_DIR/terraform.sh
