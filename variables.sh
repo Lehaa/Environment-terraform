@@ -3,22 +3,23 @@
 set -e
 # Function to test input parameter and validate
 
-declare -F validate_environment_name  &>/dev/null || validate_environment_name() {
+validate_environment_name () {
   environment_name=$1
   if [ -z "$1" ]; then
-    error "The \"environment_name\" parameter is mandatory"
+    echo "The \"environment_name\" parameter is mandatory"
     return 1
-  fi
 
-  if [[ ${#environment_name} -gt 32 ]]; then
-    error "The \"environment_name\" parameter must have lenght less than or equal to 32"
+  elif [[ ${#environment_name} -gt 32 ]]; then
+    echo "The \"environment_name\" parameter must have lenght less than or equal to 32"
     return 1
-  fi
 
-  if [[ "$environment_name" =~ ^[A-Za-z0-9\-]+$ ]]; then
-    error "The \"environment_name\" parameter must only contain alphanumeric characters and dashes"
+  elif [[ "$environment_name" =~ ^[A-Za-z0-9\-]+$ ]]; then
+    echo "The \"environment_name\" parameter must only contain alphanumeric characters and dashes"
     return 1
+
+  else
+  echo "all good"
   fi
 }
 
-validate_environment_name{$1}
+validate_environment_name $1
