@@ -15,7 +15,7 @@ validate_environment_name () {
     echo "The \"environment_name\" parameter must have lenght less than or equal to 32"
     return 1
 
-  elif [[ $environment_name =~ $regex ]]; then
+  elif [[ ! $environment_name =~ $regex ]]; then
     echo "The \"environment_name\" parameter must only contain alphanumeric characters and dashes"
     return 1
 
