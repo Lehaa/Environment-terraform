@@ -20,3 +20,8 @@ declare -F validate_environment_name  &>/dev/null || validate_environment_name()
     return 1
   fi
 }
+
+declare -F _validate &>/dev/null  || _validate() {
+  environment_name=${environment_name:-}
+  validate_environment_name "$environment_name"
+}
