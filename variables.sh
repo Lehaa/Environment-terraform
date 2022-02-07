@@ -6,6 +6,7 @@ set -e
 
 validate_environment_name () {
   environment_name=$1
+  regex="^[A-Za-z0-9\-]+$"
   if [ -z "$1" ]; then
     echo "The \"environment_name\" parameter is mandatory"
     return 1
@@ -14,7 +15,7 @@ validate_environment_name () {
     echo "The \"environment_name\" parameter must have lenght less than or equal to 32"
     return 1
 
-  elif [[ "$environment_name" =~ ^[A-Za-z0-9\-]+$ ]]; then
+  elif [[ $environment_name =~ $regex ]]; then
     echo "The \"environment_name\" parameter must only contain alphanumeric characters and dashes"
     return 1
 
