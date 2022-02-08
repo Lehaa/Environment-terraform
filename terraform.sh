@@ -1,3 +1,5 @@
 #!/usr/bin/env bash
 
-echo "You are here"
+terraform init
+
+terraform workspaces
