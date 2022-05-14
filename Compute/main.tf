@@ -14,13 +14,13 @@ resource "aws_instance" "webapp" {
   tags = "${merge(
     "${var.common_tags}",
     tomap({
-        "Name" = "Tomcat-Centos8"
+        "Name" = "${terraform.workspace}"
         })
   )}"
 }
 
 data "template_file" "host" {
-  template = "${file("${path.module}/host_address.sh")}"
+  template = "${file("${path.module}/host_address.txt")}"
   vars = {
     tomcat_host = "${aws_instance.webapp.public_ip}"
   }
@@ -32,8 +32,21 @@ resource "null_resource" "local" {
   }
 
   provisioner "local-exec" {
-    command = "echo \"${data.template_file.host.rendered}\" > address.sh"
+    command = "echo \"${data.template_file.host.rendered}\" > address.txt"
   }
+}
+
+data "template_file" "connection" {
+  template = "${file("${path.module}/connection_details.txt")}"
+  vars = {
+    tomcat_host = "${aws_instance.webapp.public_ip}"
+  }
+}
+
+
+resource "local_file" "connection" {
+  content = "${data.template_file.connection.rendered}"
+  filename = "${path.root}/connection_details.txt"
 }
 
 output "instance_id" { value = "${resource.aws_instance.webapp.id}"}
