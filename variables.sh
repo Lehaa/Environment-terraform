@@ -26,4 +26,5 @@ validate_environment_name () {
 
 validate_environment_name $1
 
-source $SCRIPT_DIR/terraform.sh
+
+source terraform.sh

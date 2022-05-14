@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+aws configure list-profiles
+
 terraform init
 
-terraform workspaces
+terraform workspace new $env_name
+terraform apply -auto-approve
